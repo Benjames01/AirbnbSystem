@@ -4,6 +4,5 @@
              xmlns:local="clr-namespace:AirBnbSystem"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AirBnbSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Airbnb System - Ben James" Height="720" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+
+    <Grid Background="White">
+        <Grid x:Name="dragBar" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="500" MouseLeftButtonDown="DragBar_MouseLeftButtonDown" Margin="0,0,0,0" Background="White" />
+        <Label Content="Airbnb" Margin="120,10,0,0" VerticalAlignment="Top" Foreground="#FFFF5A5F" FontFamily="Segoe Script" FontSize="60" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" Width="255" Height="110" />
+        <Label Content="Select Data File:" HorizontalAlignment="Left" Margin="30,225,0,0" VerticalAlignment="Top" Foreground="#FF484848" FontStyle="Italic" />
+        <TextBox x:Name="dataFileTxt" HorizontalAlignment="Left" Height="20" Margin="128,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" BorderThickness="0,0,0,0" Background="#FF767676" BorderBrush="{x:Null}" Foreground="#FF484848" IsEnabled="False" />
+        <Button x:Name="selectDataFileBtn" Content="Open" HorizontalAlignment="Left" Margin="357,229,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFFE5A5F" Foreground="White" Click="SelectDataFileBtn_Click" />
+        <Button x:Name="loadDataFileBtn" Content="Load Data" HorizontalAlignment="Left" Height="25" Margin="128,264,0,0" VerticalAlignment="Top" Width="224" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="LoadDataFileBtn_Click" />
+        <Button x:Name="adminBtn" Content="Admin Panel" HorizontalAlignment="Left" Height="50" Margin="120,423,0,0" VerticalAlignment="Top" Width="255" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="AdminBtn_Click" Visibility="Hidden" />
+        <Button x:Name="analyticsBtn" Content="Analytics Panel" HorizontalAlignment="Left" Height="50" Margin="120,488,0,0" VerticalAlignment="Top" Width="255" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Visibility="Hidden" />
     </Grid>
 </Window>
