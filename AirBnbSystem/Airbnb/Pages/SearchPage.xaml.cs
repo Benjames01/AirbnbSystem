@@ -180,22 +180,24 @@ namespace AirBnbSystem.Airbnb.Pages
         {
 
             string search;
-            if(searchFieldTxt.Text != null)
+            if(searchFieldTxt.Text != null && filterComboBox.SelectedItem.ToString() != null)
             {
-                search = searchFieldTxt.Text;
-                if (searchType == SearchType.District)
-                {
-                    AirbnbCollection[] collection = (AirbnbCollection[])AirbnbMain.GetInstance().GetDistricts();
-
-                    AirbnbCollection[] results = DataUtils.FindAirbnbCollectionsFromRegexName(collection, search);
-
-                    if(results.Length > 0)
+                if (filterComboBox.SelectedItem.ToString().Equals("Name")) {
+                    search = searchFieldTxt.Text;
+                    if (searchType == SearchType.District)
                     {
-                        resultsListBox.ItemsSource = results;
-                    } else
-                    {
-                        MessageBox.Show("0 results found for: " + search);
-                    }            
+                        AirbnbCollection[] collection = (AirbnbCollection[])AirbnbMain.GetInstance().GetDistricts();
+
+                        AirbnbCollection[] results = DataUtils.FindAirbnbCollectionsFromRegexName(collection, search);
+
+                        if (results.Length > 0)
+                        {
+                            resultsListBox.ItemsSource = results;
+                        } else
+                        {
+                            MessageBox.Show("0 results found for: " + search);
+                        }
+                    }
                 }
             }
 

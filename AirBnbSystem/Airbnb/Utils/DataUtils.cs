@@ -78,24 +78,20 @@ namespace AirBnbSystem.Airbnb.Utils
 
             AirbnbCollection[] airbnbCollections = new AirbnbCollection[0];
 
-            Regex rx = new Regex(@"\"+name+@"\/", RegexOptions.IgnoreCase);
+            Regex rx = new Regex(name, RegexOptions.IgnoreCase);
 
             for (int i = 0; i < collections.Length; i++)
             {
                 if (collections[i] != null)
-                {
+                {  
                     Match match = rx.Match(collections[i].GetName());
                     if (match.Success)
                     {
                         ResizeArray<AirbnbCollection>(ref airbnbCollections, airbnbCollections.Length + 1);
                         airbnbCollections[airbnbCollections.Length - 1] = collections[i];
-                    } else
-                    {
-                        MessageBox.Show(match.Value);
                     }
                 }
             }
-
             return airbnbCollections;
         }
 
