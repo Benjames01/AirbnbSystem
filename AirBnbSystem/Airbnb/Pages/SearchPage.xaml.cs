@@ -96,13 +96,20 @@ namespace AirBnbSystem.Airbnb.Pages
         void EnablePropertySearch()
         {
 
-            filterComboBox.ItemsSource = propertyFilters;
+            filterComboBox.ItemsSource = defaultFilters;
 
             districtComboBox.IsEnabled = true;
             neighbourComboBox.IsEnabled = true;
             propertyComboBox.IsEnabled = true;
+        }
 
-            districtComboBox.ItemsSource = AirbnbMain.GetInstance().GetDistricts();
+        void EnableNeighbourhoodSearch()
+        {
+            filterComboBox.ItemsSource = defaultFilters;
+
+            districtComboBox.IsEnabled = true;
+            neighbourComboBox.IsEnabled = true;
+            propertyComboBox.IsEnabled = false;
         }
 
         void EnableDistrictSearch()
@@ -110,11 +117,11 @@ namespace AirBnbSystem.Airbnb.Pages
             filterComboBox.ItemsSource = defaultFilters;
 
             districtComboBox.IsEnabled = true;
+            districtComboBox.SelectedItem = null;
+
             neighbourComboBox.IsEnabled = false;
             propertyComboBox.IsEnabled = false;
-
-            districtComboBox.ItemsSource = AirbnbMain.GetInstance().GetDistricts();
-            resultsListBox.ItemsSource = AirbnbMain.GetInstance().GetDistricts();
+            
         }
 
         private void UpdateFilters(SearchType searchType)
@@ -128,22 +135,41 @@ namespace AirBnbSystem.Airbnb.Pages
                     EnableDistrictSearch();
                     break;
                 case (SearchType.Neighbourhood):
+                    EnableNeighbourhoodSearch();
                     break;
             }
+
+            District[] districts = AirbnbMain.GetInstance().GetDistricts();
+
+            districtComboBox.ItemsSource = districts;
+            resultsListBox.ItemsSource = districts;
+
+            districtComboBox.SelectedItem = null;
+            neighbourComboBox.ItemsSource = null;
+            propertyComboBox.ItemsSource = null;
+
+            resultsListBox.SelectedItem = null;
         }
 
         void DistrictComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string name = ((District)districtComboBox.SelectedItem).GetName();
-
-            neighbourComboBox.ItemsSource = DataUtils.FindDistrictFromName(AirbnbMain.GetInstance().GetDistricts(), name).GetNeighbourhoods();
-
-            if(searchType == SearchType.Neighbourhood)
+            if(districtComboBox.SelectedItem != null)
             {
-                resultsListBox.ItemsSource = neighbourComboBox.ItemsSource;
-            } else if(searchType == SearchType.District)
-            {
-                resultsListBox.ItemsSource = new District[] { (District)districtComboBox.SelectedItem };
+                filterComboBox.ItemsSource = defaultFilters;
+                string name = ((District)districtComboBox.SelectedItem).GetName();
+
+                Neighbourhood[] neighbourhoods = DataUtils.FindDistrictFromName(AirbnbMain.GetInstance().GetDistricts(), name).GetNeighbourhoods();
+
+                neighbourComboBox.ItemsSource = neighbourhoods;
+
+                if (searchType == SearchType.Neighbourhood || searchType == SearchType.Property )
+                {
+                    resultsListBox.ItemsSource = neighbourComboBox.ItemsSource;
+                }
+                else if (searchType == SearchType.District)
+                {
+                    resultsListBox.ItemsSource = new District[] { (District)districtComboBox.SelectedItem };
+                }
             }
         }
 
@@ -161,6 +187,7 @@ namespace AirBnbSystem.Airbnb.Pages
                     .GetNeighbourhoods(), neighbourhoodName).GetProperties();
 
                     resultsListBox.ItemsSource = propertyComboBox.ItemsSource;
+                    filterComboBox.ItemsSource = propertyFilters;
                 }
                 else
                 {
@@ -180,7 +207,7 @@ namespace AirBnbSystem.Airbnb.Pages
         {
 
             string search;
-            if(searchFieldTxt.Text != null && filterComboBox.SelectedItem.ToString() != null)
+            if(searchFieldTxt.Text != null && filterComboBox.SelectedItem != null)
             {
                 if (filterComboBox.SelectedItem.ToString().Equals("Name")) {
                     search = searchFieldTxt.Text;
@@ -202,6 +229,38 @@ namespace AirBnbSystem.Airbnb.Pages
             }
 
         }
-                
+
+        private void ResultsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (resultsListBox.SelectedItem == null)
+                return;
+
+            if (districtComboBox.SelectedItem == null || searchType == SearchType.District)
+            {
+                District district = (District)resultsListBox.SelectedItem;
+
+                districtComboBox.SelectedItem = district;
+
+                if(searchType != SearchType.District)
+                    resultsListBox.ItemsSource = district.GetNeighbourhoods();
+
+            } else if (neighbourComboBox.SelectedItem == null || searchType == SearchType.Neighbourhood)
+            {
+                Neighbourhood neighbourhood = (Neighbourhood)resultsListBox.SelectedItem;
+                neighbourComboBox.SelectedItem = neighbourhood;
+
+                if (searchType == SearchType.Property)
+                {
+                    resultsListBox.ItemsSource = neighbourhood.GetProperties();
+                    filterComboBox.ItemsSource = propertyFilters;
+                }
+
+            } else if (propertyComboBox.SelectedItem == null && searchType == SearchType.Property)
+            {
+                propertyComboBox.SelectedItem = (Property) resultsListBox.SelectedItem;
+            }
+        }
+
     }
 }

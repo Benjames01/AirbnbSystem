@@ -9,7 +9,7 @@
       Title="DistrictPage" Background="White">
 
     <Grid Margin="0,0,0,0">
-        <ListBox x:Name="resultsListBox" HorizontalAlignment="Left" Height="248" Margin="50,118,0,0" VerticalAlignment="Top" Width="700" />
+        <ListBox x:Name="resultsListBox" HorizontalAlignment="Left" Height="248" Margin="50,118,0,0" VerticalAlignment="Top" Width="700" SelectionChanged="ResultsListBox_SelectionChanged" />
         <Label Content="Search Term: " HorizontalAlignment="Left" Margin="50,390,0,0" VerticalAlignment="Top" Width="80" />
         <TextBox x:Name="searchFieldTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="492" Margin="135,393,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
         <Button x:Name="searchBtn" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="107" Margin="643,395,0,0" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="SearchBtn_Click" />
