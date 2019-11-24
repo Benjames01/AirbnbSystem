@@ -1,4 +1,6 @@
-﻿namespace AirBnbSystem.Airbnb.Models
+﻿using AirBnbSystem.Airbnb.Utils;
+
+namespace AirBnbSystem.Airbnb.Models
 {
     internal class District : AirbnbCollection
     {
@@ -27,6 +29,23 @@
         public void SetNeighbourhoods(Neighbourhood[] neighbourhoods)
         {
             this.neighbourhoods = neighbourhoods;
+        }
+
+        public void AddNeighbourhood(Neighbourhood neighbourhood)
+        {
+            if(neighbourhoods == null)
+            {
+                neighbourhoods = new Neighbourhood[1]
+                {
+                    neighbourhood,
+                };
+                return;
+            } else
+            {
+                DataUtils.ResizeArray<Neighbourhood>(ref neighbourhoods, neighbourhoods.Length + 1);
+
+                neighbourhoods[neighbourhoods.Length - 1] = neighbourhood;
+            }
         }
     }
 }

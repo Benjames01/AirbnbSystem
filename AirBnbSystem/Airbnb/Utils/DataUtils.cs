@@ -1,6 +1,5 @@
 ﻿using AirBnbSystem.Airbnb.Models;
 using System.Text.RegularExpressions;
-using System.Windows;
 
 namespace AirBnbSystem.Airbnb.Utils
 {
@@ -72,10 +71,8 @@ namespace AirBnbSystem.Airbnb.Utils
             return null;
         }
 
-
         public static AirbnbCollection[] FindAirbnbCollectionsFromRegexName(AirbnbCollection[] collections, string name)
         {
-
             AirbnbCollection[] airbnbCollections = new AirbnbCollection[0];
 
             Regex rx = new Regex(name, RegexOptions.IgnoreCase);
@@ -83,7 +80,7 @@ namespace AirBnbSystem.Airbnb.Utils
             for (int i = 0; i < collections.Length; i++)
             {
                 if (collections[i] != null)
-                {  
+                {
                     Match match = rx.Match(collections[i].GetName());
                     if (match.Success)
                     {
@@ -94,6 +91,5 @@ namespace AirBnbSystem.Airbnb.Utils
             }
             return airbnbCollections;
         }
-
     }
 }

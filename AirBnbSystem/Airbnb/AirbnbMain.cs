@@ -41,6 +41,18 @@ namespace AirBnbSystem.Airbnb
             return districts;
         }
 
+        public void SetDistricts(District[] districts)
+        {
+            this.districts = districts;
+        }
+
+        public void AddDistrict(District district)
+        {
+            DataUtils.ResizeArray<District>(ref districts, districts.Length + 1);
+
+            districts[districts.Length - 1] = district;
+        }
+
         public bool LoadData()
         {
             if (fileName == null || fileName == "")

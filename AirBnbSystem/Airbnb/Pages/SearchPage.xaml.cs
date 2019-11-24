@@ -13,6 +13,8 @@ namespace AirBnbSystem.Airbnb.Pages
 
         SearchType searchType;
 
+        AdminWindow adminWindow;
+
         string[] propertyFilters = new string[] {
             "Property ID",
             "Property Name",
@@ -33,8 +35,9 @@ namespace AirBnbSystem.Airbnb.Pages
         };
 
 
-        public SearchPage()
+        public SearchPage(AdminWindow adminWindow)
         {
+            this.adminWindow = adminWindow;
             InitializeComponent();
         }
 
@@ -262,5 +265,9 @@ namespace AirBnbSystem.Airbnb.Pages
             }
         }
 
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            adminWindow.ChangeFrame(new AddItemPage((int) searchType));
+        }
     }
 }
