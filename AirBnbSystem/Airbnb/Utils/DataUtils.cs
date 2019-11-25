@@ -58,6 +58,19 @@ namespace AirBnbSystem.Airbnb.Utils
             return null;
         }
 
+        public static int GetNeighbourhoodIndexFromName(Neighbourhood[] neighbourhoods, string name)
+        {
+            for (int i = 0; i < neighbourhoods.Length; i++)
+            {
+                if (neighbourhoods[i].GetName().Equals(name))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         public static District FindDistrictFromName(District[] districts, string name)
         {
             for (int i = 0; i < districts.Length; i++)

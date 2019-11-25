@@ -12,15 +12,15 @@
             <Grid HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="125">
                 <Label Content="Airbnb - Admin" Margin="0,0,-101,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Script" Foreground="White" FontSize="24" Width="226" />
             </Grid>
-            <Border BorderBrush="#FF29303E" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="50" Margin="1071,0,0,0" >
+            <Border BorderBrush="#FF29303E" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="50" Margin="1071,0,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="minimiseBtn" Content="-" Width="25" Background="#FFFE3C6B" Foreground="White" BorderBrush="{x:Null}" BorderThickness="0"/>
-                    <Button x:Name="exitBtn" Content="X" Width="25" Foreground="White" Background="#FFFE3C6B" BorderBrush="{x:Null}" BorderThickness="0" Click="ExitButton_Click"/>
+                    <Button x:Name="minimiseBtn" Content="-" Width="25" Background="#FFFE3C6B" Foreground="White" BorderBrush="{x:Null}" BorderThickness="0" />
+                    <Button x:Name="exitBtn" Content="X" Width="25" Foreground="White" Background="#FFFE3C6B" BorderBrush="{x:Null}" BorderThickness="0" Click="ExitButton_Click" />
                 </StackPanel>
             </Border>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="495" Margin="0,45,0,0" VerticalAlignment="Top" Width="125" Background="#FF29303E">
-            <Border BorderBrush="#FF1E242E" BorderThickness="0,1,1,0" HorizontalAlignment="Left" Height="405" VerticalAlignment="Top" Width="125"/>
+            <Border BorderBrush="#FF1E242E" BorderThickness="0,1,1,0" HorizontalAlignment="Left" Height="405" VerticalAlignment="Top" Width="125" />
             <Button x:Name="ExitButton" Content="Exit To Menu" Margin="1,405,0,45" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="{x:Null}" Foreground="#FFFF5A5F" Click="ExitButton_Click" RenderTransformOrigin="0.492,1.267" />
         </Grid>
         <Grid HorizontalAlignment="Left" Height="405" Margin="125,45,0,0" VerticalAlignment="Top" Width="800">

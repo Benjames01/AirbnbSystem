@@ -16,7 +16,7 @@
         <Button x:Name="editBtn" Content="Edit" HorizontalAlignment="Left" Margin="50,420,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" />
         <Button x:Name="deleteBtn" Content="Delete" HorizontalAlignment="Left" Margin="135,420,0,0" VerticalAlignment="Top" Width="75" Background="#FFFF5A5F" Foreground="White" BorderBrush="{x:Null}" />
         <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="643,420,0,0" VerticalAlignment="Top" Width="107" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="AddBtn_Click" />
-        <ComboBox x:Name="districtComboBox" HorizontalAlignment="Left" Margin="543,29,0,0" VerticalAlignment="Top" Width="207" SelectionChanged="DistrictComboBox_SelectionChanged"/>
+        <ComboBox x:Name="districtComboBox" HorizontalAlignment="Left" Margin="543,29,0,0" VerticalAlignment="Top" Width="207" SelectionChanged="DistrictComboBox_SelectionChanged" />
         <Label Content="District: " Margin="486,25,262,399" RenderTransformOrigin="1.115,0.423" />
         <Label Content="Neighbourhood: " HorizontalAlignment="Left" Margin="486,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.244,0.402" />
         <ComboBox x:Name="neighbourComboBox" HorizontalAlignment="Left" Margin="592,56,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="NeighbourComboBox_SelectionChanged" />

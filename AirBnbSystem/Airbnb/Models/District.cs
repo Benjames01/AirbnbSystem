@@ -31,16 +31,27 @@ namespace AirBnbSystem.Airbnb.Models
             this.neighbourhoods = neighbourhoods;
         }
 
+        public Neighbourhood GetNeighbourhood(int index)
+        {
+            return neighbourhoods[index];
+        }
+        
+        public void SetNeighbourhood(Neighbourhood neighbourhood, int index)
+        {
+            neighbourhoods[index] = neighbourhood;
+        }
+
         public void AddNeighbourhood(Neighbourhood neighbourhood)
         {
-            if(neighbourhoods == null)
+            if (neighbourhoods == null)
             {
                 neighbourhoods = new Neighbourhood[1]
                 {
                     neighbourhood,
                 };
                 return;
-            } else
+            }
+            else
             {
                 DataUtils.ResizeArray<Neighbourhood>(ref neighbourhoods, neighbourhoods.Length + 1);
 
