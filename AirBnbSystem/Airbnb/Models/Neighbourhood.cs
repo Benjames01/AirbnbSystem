@@ -15,6 +15,7 @@ namespace AirBnbSystem.Airbnb.Models
         public Neighbourhood(string name) : base(name)
         {
             this.properties = null;
+            this.SetNumInCollection(0);
         }
 
         public Neighbourhood()

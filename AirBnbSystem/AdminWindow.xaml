@@ -22,6 +22,7 @@
         <Grid HorizontalAlignment="Left" Height="495" Margin="0,45,0,0" VerticalAlignment="Top" Width="125" Background="#FF29303E">
             <Border BorderBrush="#FF1E242E" BorderThickness="0,1,1,0" HorizontalAlignment="Left" Height="405" VerticalAlignment="Top" Width="125" />
             <Button x:Name="ExitButton" Content="Exit To Menu" Margin="1,405,0,45" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="{x:Null}" Foreground="#FFFF5A5F" Click="ExitButton_Click" RenderTransformOrigin="0.492,1.267" />
+            <Button x:Name="SearchPageButton" Content="Search" Margin="1,0,0,450" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="{x:Null}" Foreground="#FFFF5A5F" RenderTransformOrigin="0.492,1.267" Click="SearchPageButton_Click" />
         </Grid>
         <Grid HorizontalAlignment="Left" Height="405" Margin="125,45,0,0" VerticalAlignment="Top" Width="800">
             <Frame x:Name="contentFrame" Content="Frame" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="996" NavigationUIVisibility="Hidden" Margin="0,0,-196,-45" />

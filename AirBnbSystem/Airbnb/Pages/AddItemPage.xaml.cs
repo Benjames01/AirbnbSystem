@@ -20,34 +20,173 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private TextBox[] propertyFormTxts;
 
+        private int itemType = 0;
+
+        private object obj;
+
+        private string districtName;
+
+        public AddItemPage()
+        {
+        }
 
         public AddItemPage(int itemType)
         {
             InitializeComponent();
             LoadData(itemType);
 
+            this.itemType = itemType;
+
             propertyFormTxts = new TextBox[]
             {
-                propertyIdTxt,
-                propertyNameTxt,
-                propertyLatitudeTxt,
-                propertyLongitudeTxt,
-                propertyPriceTxt,
-                propertyMinNightsTxt,
-                hostIdTxt,
-                hostNameTxt,
-                numHostPropertiesTxt,
-                daysAvailableTxt,
-                roomTypeTxt
+                propertyIdTxt,          // 0
+                propertyNameTxt,        // 1
+                propertyLatitudeTxt,    // 2
+                propertyLongitudeTxt,   // 3
+                propertyPriceTxt,       // 4
+                propertyMinNightsTxt,   // 5
+                hostIdTxt,              // 6
+                hostNameTxt,            // 7
+                numHostPropertiesTxt,   // 8
+                daysAvailableTxt,       // 9
+                roomTypeTxt             // 10
             };
         }
 
-        private void LoadData(int itemType)
+        public void SetDistrictName(string name)
         {
-            itemTypeComboBox.ItemsSource = items;
-            itemTypeComboBox.SelectedIndex = itemType;
+            districtName = name;
+        }
 
-            ChangeTab(itemType);
+        public void AddObj<T>(T obj)
+        {
+            itemTypeComboBox.Visibility = Visibility.Hidden;
+            saveItemBtn.Visibility = Visibility.Visible;
+
+            this.obj = obj;
+
+            if (itemType == 0)
+            {
+                itemNameTxt.Text = ((District)this.obj).GetName();
+            }
+            else if (itemType == 1)
+            {
+                itemNameTxt.Text = ((Neighbourhood)this.obj).GetName();
+            }
+            else if (itemType == 2)
+            {
+                propertySaveBtn.Visibility = Visibility.Visible;
+
+                Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 1));
+
+                propertyFormTxts[0].Text = ((Property)this.obj).GetId();
+                propertyFormTxts[1].Text = ((Property)this.obj).GetName();
+
+                propertyFormTxts[6].Text = ((Property)this.obj).GetHostId();
+                propertyFormTxts[7].Text = ((Property)this.obj).GetHostName();
+
+                propertyFormTxts[5].Text = ((Property)this.obj).GetMinNightsStay().ToString(); // if parsed
+                propertyFormTxts[2].Text = ((Property)this.obj).GetLatitude().ToString();
+                propertyFormTxts[3].Text = ((Property)this.obj).GetLongitude().ToString();
+                propertyFormTxts[8].Text = ((Property)this.obj).GetNumHostProperties().ToString();
+                propertyFormTxts[9].Text = ((Property)this.obj).GetAvailableDaysPerYear().ToString();
+                propertyFormTxts[4].Text = ((Property)this.obj).GetPrice().ToString();
+
+                propertyFormTxts[10].Text = ((Property)this.obj).GetRoomType();
+            }
+        }
+
+        private void SaveDistrict()
+        {
+            if (itemNameTxt.Text.Equals("") && itemNameTxt.Text != null)
+            {
+                MessageBox.Show("Name must not be empty!");
+            }
+            else
+            {
+                ((District)obj).SetName(itemNameTxt.Text);
+            }
+        }
+
+        private void SaveNeighbourhood()
+        {
+            if (itemNameTxt.Text.Equals("") && itemNameTxt.Text != null)
+            {
+                MessageBox.Show("Name must not be empty!");
+            }
+            else
+            {
+                ((Neighbourhood)obj).SetName(itemNameTxt.Text);
+            }
+        }
+
+        private void SaveProperty()
+        {
+            bool parsed = true;
+
+            for (int i = 0; i < propertyFormTxts.Length; i++)
+            {
+                TextBox text = propertyFormTxts[i];
+
+                if (!CheckValid(text))
+                {
+                    MessageBox.Show("Please make sure all fields are filled out!");
+                    return;
+                }
+            }
+
+            float latitude = DataUtils.StringToFloat(propertyFormTxts[2].Text);
+            parsed = ValidateFloat(latitude, "Please enter a float value above or below 0 for latitude!");
+            float longitude = DataUtils.StringToFloat(propertyFormTxts[3].Text);
+            parsed = ValidateFloat(latitude, "Please enter a float value above or below 0 for longitude!");
+            int price = DataUtils.StringToInt(propertyFormTxts[4].Text);
+            parsed = ValidateInt(price, "Please enter an integer value above 0 for price!");
+
+            int minNightsStay = DataUtils.StringToInt(propertyFormTxts[5].Text);
+            parsed = ValidateInt(minNightsStay, "Please enter an integer value above 0 for min nights stay!");
+
+            int numProperty = DataUtils.StringToInt(propertyFormTxts[8].Text);
+            parsed = ValidateInt(numProperty, "Please enter a valid number above 0 for host properties!");
+
+            int daysAvailable = DataUtils.StringToInt(propertyFormTxts[9].Text);
+            parsed = ValidateInt(daysAvailable, "Please enter a valid number above 0 for days available!");
+
+            if (parsed)
+            {
+                ((Property)obj).SetId(propertyFormTxts[0].Text);
+                ((Property)obj).SetName(propertyFormTxts[1].Text);
+
+                ((Property)obj).SetHostId(propertyFormTxts[6].Text);
+                ((Property)obj).SetHostName(propertyFormTxts[7].Text);
+
+                ((Property)obj).SetMinNightsStay(minNightsStay); // if parsed
+                ((Property)obj).SetLatitude(latitude); // if parsed
+                ((Property)obj).SetLongitude(longitude); //if parsed
+                ((Property)obj).SetNumHostProperties(numProperty); //if parsed
+                ((Property)obj).SetAvailableDaysPerYear(daysAvailable); //if parsed
+                ((Property)obj).SetPrice(price); // if parsed
+
+                ((Property)obj).SetRoomType(propertyFormTxts[10].Text);
+            }
+        }
+
+        private void SaveItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (itemType == 0)
+            {
+                SaveDistrict();
+            }
+            else if (itemType == 1)
+            {
+                SaveNeighbourhood();
+            }
+            else if (itemType == 2)
+            {
+                SaveProperty();
+            }
+
+            AirbnbMain.GetInstance().SaveData();
+            MessageBox.Show("Successfully Saved!");
         }
 
         private void AddItemBtn_Click(object sender, RoutedEventArgs e)
@@ -62,11 +201,21 @@ namespace AirBnbSystem.Airbnb.Pages
                 {
                     NeighbourhoodAddButtonClick();
                 }
+
+                AirbnbMain.GetInstance().SaveData();
             }
             else
             {
                 MessageBox.Show("Please enter a name before adding!");
             }
+        }
+
+        private void LoadData(int itemType)
+        {
+            itemTypeComboBox.ItemsSource = items;
+            itemTypeComboBox.SelectedIndex = itemType;
+
+            ChangeTab(itemType);
         }
 
         private void NeighbourhoodAddButtonClick()
@@ -77,6 +226,8 @@ namespace AirBnbSystem.Airbnb.Pages
             if (districtComboBox.SelectedItem != null)
             {
                 ((District)districtComboBox.SelectedItem).AddNeighbourhood(neighbourhood);
+
+                ((District)districtComboBox.SelectedItem).SetNumInCollection(((District)districtComboBox.SelectedItem).GetNumInCollection() + 1);
 
                 itemNameTxt.Text = null;
                 districtComboBox.SelectedItem = null;
@@ -97,7 +248,6 @@ namespace AirBnbSystem.Airbnb.Pages
             itemNameTxt.Text = null;
 
             AirbnbMain.GetInstance().AddDistrict(district);
-
             MessageBox.Show("Successfully added item!");
         }
 
@@ -148,7 +298,6 @@ namespace AirBnbSystem.Airbnb.Pages
             }
         }
 
-
         private void PropertyAddButtonClick(object sender, RoutedEventArgs e)
         {
             if (propertyDistrictCombo.SelectedItem == null || propertyNeighbourhoodCombo.SelectedItem == null)
@@ -160,7 +309,7 @@ namespace AirBnbSystem.Airbnb.Pages
                 bool parsed = true;
                 Property property = new Property();
 
-                for(int i = 0; i < propertyFormTxts.Length; i++)
+                for (int i = 0; i < propertyFormTxts.Length; i++)
                 {
                     TextBox text = propertyFormTxts[i];
 
@@ -185,7 +334,7 @@ namespace AirBnbSystem.Airbnb.Pages
                 parsed = ValidateInt(numProperty, "Please enter a valid number above 0 for host properties!");
 
                 int daysAvailable = DataUtils.StringToInt(propertyFormTxts[9].Text);
-                parsed = ValidateInt(daysAvailable, "Please enter a valid number above 0 for days available!");              
+                parsed = ValidateInt(daysAvailable, "Please enter a valid number above 0 for days available!");
 
                 if (parsed)
                 {
@@ -218,14 +367,12 @@ namespace AirBnbSystem.Airbnb.Pages
                     propertyDistrictCombo.SelectedItem = null;
                     propertyNeighbourhoodCombo.ItemsSource = null;
                 }
-
-
             }
         }
 
         private bool ValidateInt(int i, string errorMessage)
         {
-            if(i <= 0)
+            if (i <= 0)
             {
                 MessageBox.Show(errorMessage);
                 return false;
@@ -236,7 +383,7 @@ namespace AirBnbSystem.Airbnb.Pages
         private bool ValidateFloat(float i, string errorMessage)
         {
             if (i != 0f)
-            {             
+            {
                 return true;
             }
 
@@ -246,7 +393,7 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private bool CheckValid(TextBox text)
         {
-            if(!String.IsNullOrWhiteSpace(text.Text))
+            if (!String.IsNullOrWhiteSpace(text.Text))
             {
                 return true;
             }

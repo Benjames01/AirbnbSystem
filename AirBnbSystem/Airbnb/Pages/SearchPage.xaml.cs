@@ -14,25 +14,6 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private AdminWindow adminWindow;
 
-        private string[] propertyFilters = new string[] {
-            "Property ID",
-            "Property Name",
-            "Host ID",
-            "Host Name",
-            "Number of Host's Properties",
-            "Latitude",
-            "Longitude",
-            "Room Type",
-            "Price",
-            "Minimum Number of Nights",
-            "Availability"
-            };
-
-        private string[] defaultFilters = new string[] {
-            "Name",
-            "Number in collection"
-        };
-
         public SearchPage(AdminWindow adminWindow)
         {
             this.adminWindow = adminWindow;
@@ -94,8 +75,6 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private void EnablePropertySearch()
         {
-            filterComboBox.ItemsSource = defaultFilters;
-
             districtComboBox.IsEnabled = true;
             neighbourComboBox.IsEnabled = true;
             propertyComboBox.IsEnabled = true;
@@ -103,8 +82,6 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private void EnableNeighbourhoodSearch()
         {
-            filterComboBox.ItemsSource = defaultFilters;
-
             districtComboBox.IsEnabled = true;
             neighbourComboBox.IsEnabled = true;
             propertyComboBox.IsEnabled = false;
@@ -112,8 +89,6 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private void EnableDistrictSearch()
         {
-            filterComboBox.ItemsSource = defaultFilters;
-
             districtComboBox.IsEnabled = true;
             districtComboBox.SelectedItem = null;
 
@@ -123,10 +98,12 @@ namespace AirBnbSystem.Airbnb.Pages
 
         private void UpdateFilters(SearchType searchType)
         {
+            deleteBtn.Visibility = Visibility.Hidden;
             switch (searchType)
             {
                 case (SearchType.Property):
                     EnablePropertySearch();
+                    deleteBtn.Visibility = Visibility.Visible;
                     break;
 
                 case (SearchType.District):
@@ -154,10 +131,12 @@ namespace AirBnbSystem.Airbnb.Pages
         {
             if (districtComboBox.SelectedItem != null)
             {
-                filterComboBox.ItemsSource = defaultFilters;
                 string name = ((District)districtComboBox.SelectedItem).GetName();
 
-                Neighbourhood[] neighbourhoods = DataUtils.FindDistrictFromName(AirbnbMain.GetInstance().GetDistricts(), name).GetNeighbourhoods();
+                Neighbourhood[] neighbourhoods = ((District)DataUtils
+                    .GetAirbnbCollectionFromName(AirbnbMain.GetInstance()
+                    .GetDistricts(), name))
+                    .GetNeighbourhoods();
 
                 neighbourComboBox.ItemsSource = neighbourhoods;
 
@@ -181,12 +160,14 @@ namespace AirBnbSystem.Airbnb.Pages
 
                 if (searchType == SearchType.Property)
                 {
-                    propertyComboBox.ItemsSource = DataUtils.FindNeighbourhoodFromName(DataUtils
-                    .FindDistrictFromName(AirbnbMain.GetInstance().GetDistricts(), name)
-                    .GetNeighbourhoods(), neighbourhoodName).GetProperties();
+                    propertyComboBox.ItemsSource =
+                        ((Neighbourhood)DataUtils.GetAirbnbCollectionFromName(
+                        ((District)DataUtils.GetAirbnbCollectionFromName(
+                            AirbnbMain.GetInstance().GetDistricts(), name))
+                            .GetNeighbourhoods(), neighbourhoodName))
+                            .GetProperties();
 
                     resultsListBox.ItemsSource = propertyComboBox.ItemsSource;
-                    filterComboBox.ItemsSource = propertyFilters;
                 }
                 else
                 {
@@ -200,33 +181,6 @@ namespace AirBnbSystem.Airbnb.Pages
             if (searchType == SearchType.Property)
             {
                 resultsListBox.ItemsSource = new Property[] { (Property)propertyComboBox.SelectedItem };
-            }
-        }
-
-        private void SearchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            string search;
-            if (searchFieldTxt.Text != null && filterComboBox.SelectedItem != null)
-            {
-                if (filterComboBox.SelectedItem.ToString().Equals("Name"))
-                {
-                    search = searchFieldTxt.Text;
-                    if (searchType == SearchType.District)
-                    {
-                        AirbnbCollection[] collection = (AirbnbCollection[])AirbnbMain.GetInstance().GetDistricts();
-
-                        AirbnbCollection[] results = DataUtils.FindAirbnbCollectionsFromRegexName(collection, search);
-
-                        if (results.Length > 0)
-                        {
-                            resultsListBox.ItemsSource = results;
-                        }
-                        else
-                        {
-                            MessageBox.Show("0 results found for: " + search);
-                        }
-                    }
-                }
             }
         }
 
@@ -252,7 +206,6 @@ namespace AirBnbSystem.Airbnb.Pages
                 if (searchType == SearchType.Property)
                 {
                     resultsListBox.ItemsSource = neighbourhood.GetProperties();
-                    filterComboBox.ItemsSource = propertyFilters;
                 }
             }
             else if (propertyComboBox.SelectedItem == null && searchType == SearchType.Property)
@@ -261,9 +214,117 @@ namespace AirBnbSystem.Airbnb.Pages
             }
         }
 
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (resultsListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a property before deleting!");
+            }
+            else
+            {
+                Property[] properties = ((Neighbourhood)neighbourComboBox.SelectedItem).GetProperties();
+                Property property = (Property)resultsListBox.SelectedItem;
+
+                int index = DataUtils.GetPropertyIndexFromID(properties, property.GetId());
+
+                int i = properties.Length;
+
+                DataUtils.RemoveAtIndex(ref properties, index);
+
+                i = properties.Length;
+
+                ((Neighbourhood)neighbourComboBox.SelectedItem).SetProperties(properties);
+                ((Neighbourhood)neighbourComboBox.SelectedItem).SetNumInCollection(properties.Length);
+
+                int neighbourIndex = neighbourComboBox.SelectedIndex;
+
+                ((District)districtComboBox.SelectedItem)
+                    .SetNeighbourhood(((Neighbourhood)neighbourComboBox.SelectedItem)
+                    , neighbourIndex);
+
+                AirbnbMain.GetInstance().SaveData();
+
+                neighbourComboBox.ItemsSource = ((District)districtComboBox.SelectedItem).GetNeighbourhoods();
+
+                neighbourComboBox.SelectedItem = null;
+                propertyComboBox.SelectedItem = null;
+
+                MessageBox.Show("Successfully Deleted Property!");
+            }
+        }
+
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             adminWindow.ChangeFrame(new AddItemPage((int)searchType));
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool isOpenable = true;
+
+            switch (searchType)
+            {
+                case (SearchType.Property):
+                    if (propertyComboBox.SelectedItem == null)
+                    {
+                        MessageBox.Show("Please select a property before trying to view/edit!");
+                        isOpenable = false;
+                    }
+                    ViewObject(isOpenable, ((Property)propertyComboBox.SelectedItem));
+                    break;
+
+                case (SearchType.District):
+                    if (districtComboBox.SelectedItem == null)
+                    {
+                        MessageBox.Show("Please select a district before trying to view/edit!");
+                        isOpenable = false;
+                    }
+                    ViewObject(isOpenable, ((District)districtComboBox.SelectedItem));
+                    break;
+
+                case (SearchType.Neighbourhood):
+                    if (neighbourComboBox.SelectedItem == null)
+                    {
+                        MessageBox.Show("Please select a neighbourhood before trying to view/edit!");
+                        isOpenable = false;
+                    }
+                    else
+                    {
+                        AddItemPage viewPage = ViewObject(isOpenable, ((Neighbourhood)neighbourComboBox.SelectedItem));
+                        MessageBox.Show(((Neighbourhood)neighbourComboBox.SelectedItem).GetName());
+                        if (viewPage != null)
+                        {
+                            viewPage.SetDistrictName(districtComboBox.Text);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private AddItemPage ViewObject<T>(bool isOpenable, T obj)
+        {
+            AddItemPage viewPage = OpenViewPage(isOpenable);
+
+            if (viewPage != null)
+            {
+                viewPage.AddObj(obj);
+                return viewPage;
+            }
+
+            return null;
+        }
+
+        private AddItemPage OpenViewPage(bool isOpenable)
+        {
+            if (isOpenable)
+            {
+                AddItemPage itemPage = new AddItemPage((int)searchType);
+                adminWindow.ChangeFrame(itemPage);
+
+                return itemPage;
+            }
+
+            return null;
         }
     }
 }

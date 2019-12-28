@@ -45,30 +45,66 @@ namespace AirBnbSystem.Airbnb.Utils
             array = temp;
         }
 
-        public static Neighbourhood FindNeighbourhoodFromName(Neighbourhood[] neighbourhoods, string name)
+        public static AirbnbCollection GetAirbnbCollectionFromName(AirbnbCollection[] collection, string name)
         {
-            for (int i = 0; i < neighbourhoods.Length; i++)
+            for (int i = 0; i < collection.Length; i++)
             {
-                if (neighbourhoods[i].GetName().Equals(name))
+                if (collection[i] != null)
                 {
-                    return neighbourhoods[i];
+                    if (collection[i].GetName().Equals(name))
+                    {
+                        return collection[i];
+                    }
                 }
             }
-
             return null;
         }
 
-        public static int GetNeighbourhoodIndexFromName(Neighbourhood[] neighbourhoods, string name)
+        public static int GetAirbnbCollectionIndexFromName(AirbnbCollection[] array, string name)
         {
-            for (int i = 0; i < neighbourhoods.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                if (neighbourhoods[i].GetName().Equals(name))
+                if (array[i] != null)
+                {
+                    if (array[i].GetName().Equals(name))
+                        return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static int GetPropertyIndexFromID(Property[] properties, string id)
+        {
+            for (int i = 0; i < properties.Length; i++)
+            {
+                if (properties[i].GetId().Equals(id))
                 {
                     return i;
                 }
             }
 
             return -1;
+        }
+
+        public static void RemoveAtIndex<T>(ref T[] array, int index)
+        {
+            T[] tmpArray = new T[array.Length - 1];
+
+            int i = 0;
+            int y = 0;
+
+            while (i < array.Length)
+            {
+                if (i != index)
+                {
+                    tmpArray[y] = array[i];
+                    y++;
+                }
+                i++;
+            }
+
+            array = tmpArray;
         }
 
         public static District FindDistrictFromName(District[] districts, string name)

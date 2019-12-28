@@ -35,7 +35,7 @@ namespace AirBnbSystem.Airbnb.Models
         {
             return neighbourhoods[index];
         }
-        
+
         public void SetNeighbourhood(Neighbourhood neighbourhood, int index)
         {
             neighbourhoods[index] = neighbourhood;

@@ -10,6 +10,7 @@ namespace AirBnbSystem
     public partial class AdminWindow : Window
     {
         private MainWindow mainWindow;
+        private SearchPage searchPage;
 
         public AdminWindow(MainWindow mainWindow)
         {
@@ -17,7 +18,8 @@ namespace AirBnbSystem
 
             this.mainWindow = mainWindow;
 
-            contentFrame.Content = new SearchPage(this);
+            searchPage = new SearchPage(this);
+            ChangeFrame(searchPage);
         }
 
         private void DragBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -34,6 +36,11 @@ namespace AirBnbSystem
         public void ChangeFrame(Page page)
         {
             contentFrame.Content = page;
+        }
+
+        private void SearchPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeFrame(searchPage);
         }
     }
 }
