@@ -25,36 +25,40 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="PropertyItem" Visibility="Visible">
+                <TabItem Header="PropertyItem" Visibility="Collapsed">
                     <Grid Background="White">
-                        <Label Content="Id: " HorizontalAlignment="Left" Margin="62,43,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="propertyIdTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="93,43,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="District: " HorizontalAlignment="Left" Margin="40,11,0,0" VerticalAlignment="Top" Width="53" />
-                        <ComboBox x:Name="propertyDistrictCombo" HorizontalAlignment="Left" Margin="93,11,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="PropertyDistrictCombo_SelectionChanged" />
-                        <Button Content="Add" HorizontalAlignment="Left" Margin="199,255,0,0" VerticalAlignment="Top" Width="248" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="PropertyAddButtonClick" />
-                        <Label Content="Neighbourhood: " HorizontalAlignment="Left" Margin="310,10,0,0" VerticalAlignment="Top" Width="100" />
-                        <ComboBox x:Name="propertyNeighbourhoodCombo" HorizontalAlignment="Left" Margin="415,11,0,0" VerticalAlignment="Top" Width="195" />
-                        <Label Content="Name: " HorizontalAlignment="Left" Margin="40,71,0,0" VerticalAlignment="Top" />
-                        <TextBox  x:Name="propertyNameTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="93,71,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Host Id: " HorizontalAlignment="Left" Margin="346,46,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="hostIdTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="415,46,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Host Name: " HorizontalAlignment="Left" Margin="324,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.628,0.556" />
-                        <TextBox x:Name="hostNameTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="415,72,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Host Properties #: " HorizontalAlignment="Left" Margin="292,102,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="numHostPropertiesTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="415,102,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Latitude: " HorizontalAlignment="Left" Margin="32,99,0,0" VerticalAlignment="Top" />
-                        <TextBox  x:Name="propertyLatitudeTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="93,99,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Longitude: " HorizontalAlignment="Left" Margin="21,130,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="propertyLongitudeTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Margin="91,130,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Room Type: " HorizontalAlignment="Left" Margin="324,161,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="roomTypeTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="415,161,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Price (£): " HorizontalAlignment="Left" Margin="32,161,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="propertyPriceTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="93,161,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Min Nights: " HorizontalAlignment="Left" Margin="16,189,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="propertyMinNightsTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Margin="91,187,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Label Content="Days Available: " HorizontalAlignment="Left" Margin="308,133,0,0" VerticalAlignment="Top" />
-                        <TextBox x:Name="daysAvailableTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="415,133,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" />
-                        <Button x:Name="propertySaveBtn" Content="Save" HorizontalAlignment="Left" Margin="199,255,0,0" VerticalAlignment="Top" Width="248" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="SaveItemBtn_Click" Visibility="Hidden" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="22*" />
+                            <ColumnDefinition Width="305*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Id: " HorizontalAlignment="Left" Margin="18.496,43,0,0" VerticalAlignment="Top" Grid.Column="1" />
+                        <TextBox x:Name="propertyIdTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="49.496,43,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label x:Name="propertyDistrictLbl" Content="District: " HorizontalAlignment="Left" Margin="40,11,0,0" VerticalAlignment="Top" Width="53" Grid.ColumnSpan="2" />
+                        <ComboBox x:Name="propertyDistrictCombo" HorizontalAlignment="Left" Margin="49.496,11,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="PropertyDistrictCombo_SelectionChanged" Grid.Column="1" />
+                        <Button Content="Add" HorizontalAlignment="Left" Margin="155.496,255,0,0" VerticalAlignment="Top" Width="248" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="PropertyAddButtonClick" Grid.Column="1" />
+                        <Label x:Name="propertyNeighbourLbl" Content="Neighbourhood: " HorizontalAlignment="Left" Margin="266.496,10,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" />
+                        <ComboBox x:Name="propertyNeighbourhoodCombo" HorizontalAlignment="Left" Margin="371.496,11,0,0" VerticalAlignment="Top" Width="195" Grid.Column="1" />
+                        <Label Content="Name: " HorizontalAlignment="Left" Margin="40,71,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <TextBox  x:Name="propertyNameTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="49.496,71,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Host Id: " HorizontalAlignment="Left" Margin="302.496,46,0,0" VerticalAlignment="Top" Grid.Column="1" />
+                        <TextBox x:Name="hostIdTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="371.496,46,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Host Name: " HorizontalAlignment="Left" Margin="280.496,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.628,0.556" Grid.Column="1" />
+                        <TextBox x:Name="hostNameTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="371.496,72,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Host Properties #: " HorizontalAlignment="Left" Margin="248.496,102,0,0" VerticalAlignment="Top" Grid.Column="1" />
+                        <TextBox x:Name="numHostPropertiesTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="371.496,102,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Latitude: " HorizontalAlignment="Left" Margin="32,99,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <TextBox  x:Name="propertyLatitudeTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="49.496,99,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Longitude: " HorizontalAlignment="Left" Margin="21,130,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="propertyLongitudeTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Margin="47.496,130,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Room Type: " HorizontalAlignment="Left" Margin="280.496,161,0,0" VerticalAlignment="Top" Grid.Column="1" />
+                        <TextBox x:Name="roomTypeTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="371.496,161,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Price (£): " HorizontalAlignment="Left" Margin="32,161,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="propertyPriceTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="49.496,161,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Min Nights: " HorizontalAlignment="Left" Margin="16,189,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="propertyMinNightsTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Margin="47.496,187,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Label Content="Days Available: " HorizontalAlignment="Left" Margin="264.496,133,0,0" VerticalAlignment="Top" Grid.Column="1" />
+                        <TextBox x:Name="daysAvailableTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Margin="371.496,133,0,0" BorderBrush="#FF554F4F" Background="White" BorderThickness="0,0,0,1" Grid.Column="1" />
+                        <Button x:Name="propertySaveBtn" Content="Save" HorizontalAlignment="Left" Margin="155.496,255,0,0" VerticalAlignment="Top" Width="248" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="SaveItemBtn_Click" Visibility="Hidden" Grid.Column="1" />
                     </Grid>
                 </TabItem>
             </TabControl>

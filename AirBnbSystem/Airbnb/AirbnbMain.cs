@@ -14,6 +14,8 @@ namespace AirBnbSystem.Airbnb
 
         private string fileName;
 
+        private AdminWindow adminWindow;
+
         private AirbnbMain()
         {
         }
@@ -25,6 +27,16 @@ namespace AirBnbSystem.Airbnb
                 instance = new AirbnbMain();
             }
             return instance;
+        }
+
+        public void SetAdminWindow(AdminWindow adminWindow)
+        {
+            this.adminWindow = adminWindow;
+        }
+
+        public AdminWindow GetAdminWindow()
+        {
+            return adminWindow;
         }
 
         public void SetFileName(string fileName)

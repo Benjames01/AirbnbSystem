@@ -1,4 +1,5 @@
-﻿using AirBnbSystem.Airbnb.Pages;
+﻿using AirBnbSystem.Airbnb;
+using AirBnbSystem.Airbnb.Pages;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,6 +21,8 @@ namespace AirBnbSystem
 
             searchPage = new SearchPage(this);
             ChangeFrame(searchPage);
+
+            AirbnbMain.GetInstance().SetAdminWindow(this);
         }
 
         private void DragBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -40,6 +43,7 @@ namespace AirBnbSystem
 
         private void SearchPageButton_Click(object sender, RoutedEventArgs e)
         {
+            searchPage = new SearchPage(this);
             ChangeFrame(searchPage);
         }
     }

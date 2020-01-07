@@ -291,7 +291,6 @@ namespace AirBnbSystem.Airbnb.Pages
                     else
                     {
                         AddItemPage viewPage = ViewObject(isOpenable, ((Neighbourhood)neighbourComboBox.SelectedItem));
-                        MessageBox.Show(((Neighbourhood)neighbourComboBox.SelectedItem).GetName());
                         if (viewPage != null)
                         {
                             viewPage.SetDistrictName(districtComboBox.Text);

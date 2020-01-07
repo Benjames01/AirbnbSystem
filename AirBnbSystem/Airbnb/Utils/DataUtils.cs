@@ -140,5 +140,203 @@ namespace AirBnbSystem.Airbnb.Utils
             }
             return airbnbCollections;
         }
+
+        public static float GetDistrictAveragePropertyPrice(District district)
+        {
+            int totalPrice = 0;
+            int totalProperties = 0;
+
+            if (district.GetNumInCollection() <= 0)
+                return 0f;
+
+            for (int i = 0; i < district.GetNumInCollection(); i++)
+            {
+                if (district.GetNeighbourhood(i).GetNumInCollection() > 0)
+                {
+                    for (int y = 0; y < district.GetNeighbourhood(i).GetNumInCollection(); y++)
+                    {
+                        totalPrice += district.GetNeighbourhood(i).GetProperties()[y].GetPrice();
+                        totalProperties++;
+                    }
+                }
+
+            }
+
+            return (float) totalPrice / totalProperties;
+        }
+
+        public static float GetNeighbourhoodAveragePropertyPrice(Neighbourhood neighbourhood)
+        {
+            int totalPrice = 0;
+            int totalProperties = 0;
+
+            if (neighbourhood.GetNumInCollection() <= 0)
+                return 0f;
+
+            for (int i = 0; i < neighbourhood.GetNumInCollection(); i++)
+            {
+                        totalPrice += neighbourhood.GetProperties()[i].GetPrice();
+                        totalProperties++;
+            }
+
+            return (float)totalPrice / totalProperties;
+        }
+
+        public static float GetDistrictAverageAvailablity(District district)
+        {
+            int totalAvailability = 0;
+            int totalProperties = 0;
+
+            if (district.GetNumInCollection() <= 0)
+                return 0f;
+
+            for (int i = 0; i < district.GetNumInCollection(); i++)
+            {
+                if (district.GetNeighbourhood(i).GetNumInCollection() > 0)
+                {
+                    for (int y = 0; y < district.GetNeighbourhood(i).GetNumInCollection(); y++)
+                    {
+                        totalAvailability += district.GetNeighbourhood(i).GetProperties()[y].GetAvailableDaysPerYear();
+                        totalProperties++;
+                    }
+                }
+
+            }
+
+            return (float)totalAvailability / totalProperties;
+        }
+
+        public static float GetDistrictAverageHostProperties(District district)
+        {
+            int totalHosts = 0;
+            int totalProperties = 0;
+
+            if (district.GetNumInCollection() <= 0)
+                return 0f;
+
+            for (int i = 0; i < district.GetNumInCollection(); i++)
+            {
+                if (district.GetNeighbourhood(i).GetNumInCollection() > 0)
+                {
+                    for (int y = 0; y < district.GetNeighbourhood(i).GetNumInCollection(); y++)
+                    {
+                        totalProperties += district.GetNeighbourhood(i).GetProperties()[y].GetNumHostProperties();
+                        totalHosts++;
+                    }
+                }
+
+            }
+
+            return (float)totalProperties / totalHosts;
+        }
+
+
+        public static int GetDistrictAveragePropertiesPerHost(District district)
+        {
+            int totalProperties = 0;
+
+            string[] hosts = null;
+
+            if (district.GetNumInCollection() <= 0)
+                return 0;
+
+            for (int i = 0; i < district.GetNumInCollection(); i++)
+            {
+                if (district.GetNeighbourhood(i).GetNumInCollection() > 0)
+                {
+                    for (int y = 0; y < district.GetNeighbourhood(i).GetNumInCollection(); y++)
+                    {
+
+                        string host = district.GetNeighbourhood(i).GetProperties()[y].GetHostId();
+
+                        bool contains = CheckIfContains(hosts, host);
+
+                        if (hosts == null && !contains)
+                        {
+                            hosts = new string[]{host};
+                        } else if(!contains)
+                        {
+                            ResizeArray(ref hosts, hosts.Length + 1);
+                            hosts[hosts.Length -1] = host;
+                        }
+
+                        totalProperties++;
+                    }
+                }
+            }
+
+            return totalProperties / hosts.Length;
+        }
+
+
+        public static bool CheckIfContains(string[] array, string value)
+        {
+            if (array == null)
+                return false;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if(array[i] == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        public static GraphData[] GetGraphData(District district)
+        {
+            GraphData[] dataSet = new GraphData[district.GetNeighbourhoods().Length];
+
+            for (int i = 0; i < district.GetNeighbourhoods().Length; i++)
+            {
+                float averagePrice = GetNeighbourhoodAveragePropertyPrice(district.GetNeighbourhood(i));
+                GraphData data = new GraphData
+                {
+                    name = district.GetNeighbourhood(i).GetName(),
+                    averagePrice = averagePrice
+                };
+                dataSet[i] = data;
+            }
+
+            return dataSet;
+        }
+
+        public static string GetStartingCharactersOfString(string str)
+        {
+            string startingChars = "";
+
+            bool found = true;
+            for (int i = 0; i < str.Length; i++)
+            {
+                // If it's a space set found to true
+                if (str[i] == ' ')
+                    found = true;
+                else if (str[i] != ' ' && found == true)
+                {
+                    startingChars += (str[i]);
+                    for (int y = 1; y < 3; y++)
+                    {
+                        if (str.Length <= i+y)
+                            return startingChars;
+                        if (str[i + y] != ' ')
+                            startingChars += str[i + y];
+                    }
+                    startingChars += " ";
+                    found = false;
+                }
+            }
+
+            return startingChars;
+        }
+
+        public struct GraphData
+        {
+            public string name;
+            public float averagePrice;
+        }
+
     }
 }

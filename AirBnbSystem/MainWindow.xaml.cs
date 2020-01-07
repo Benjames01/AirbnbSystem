@@ -64,5 +64,13 @@ namespace AirBnbSystem
 
             this.Hide();
         }
+
+        private void analyticsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyticsWindow analyticsWindow = new AnalyticsWindow(this);
+            analyticsWindow.Show();
+
+            this.Hide();
+        }
     }
 }

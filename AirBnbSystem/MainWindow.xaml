@@ -15,6 +15,6 @@
         <Button x:Name="selectDataFileBtn" Content="Open" HorizontalAlignment="Left" Margin="357,229,0,0" VerticalAlignment="Top" Width="75" BorderBrush="{x:Null}" Background="#FFFE5A5F" Foreground="White" Click="SelectDataFileBtn_Click" />
         <Button x:Name="loadDataFileBtn" Content="Load Data" HorizontalAlignment="Left" Height="25" Margin="128,264,0,0" VerticalAlignment="Top" Width="224" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="LoadDataFileBtn_Click" />
         <Button x:Name="adminBtn" Content="Admin Panel" HorizontalAlignment="Left" Height="50" Margin="120,423,0,0" VerticalAlignment="Top" Width="255" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Click="AdminBtn_Click" Visibility="Hidden" />
-        <Button x:Name="analyticsBtn" Content="Analytics Panel" HorizontalAlignment="Left" Height="50" Margin="120,488,0,0" VerticalAlignment="Top" Width="255" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Visibility="Hidden" />
+        <Button x:Name="analyticsBtn" Content="Analytics Panel" HorizontalAlignment="Left" Height="50" Margin="120,488,0,0" VerticalAlignment="Top" Width="255" BorderBrush="{x:Null}" Background="#FFFF5A5F" Foreground="White" Visibility="Hidden" Click="analyticsBtn_Click" />
     </Grid>
 </Window>
