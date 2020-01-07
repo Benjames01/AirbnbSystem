@@ -11,17 +11,17 @@ This data was sourced from https://www.kaggle.com/dgomonov/new-york-city-airbnbo
 
 - All admin staff at the Airbnb office will use the system in the same way. They will need to be able to do the following tasks:
 
- #####DISTRICT
+ ###DISTRICT
  -  SEARCH and DISPLAY district data appropriately
  -  ADD a new district
  -  EDIT a district name
  
- #####NEIGHBOURHOOD
+ ###NEIGHBOURHOOD
  - SELECT and DISPLAY neighbourhood data appropriately
  - ADD a new neighbourhood
  - EDIT a neighbourhood name
  
- #####PROPERTY
+ ###PROPERTY
  - SELECT and DISPLAY a property
  - ADD a new property
  - EDIT/DELETE an existing property
