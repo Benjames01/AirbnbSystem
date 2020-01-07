@@ -26,8 +26,6 @@ This data was sourced from https://www.kaggle.com/dgomonov/new-york-city-airbnbo
  - ADD a new property
  - EDIT/DELETE an existing property
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 A __District__ is defined by the following characteristics or features:
 - District name
 - The number of neighbourhoods in that district
