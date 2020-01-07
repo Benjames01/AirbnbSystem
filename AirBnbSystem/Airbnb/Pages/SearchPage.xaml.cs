@@ -227,11 +227,7 @@ namespace AirBnbSystem.Airbnb.Pages
 
                 int index = DataUtils.GetPropertyIndexFromID(properties, property.GetId());
 
-                int i = properties.Length;
-
                 DataUtils.RemoveAtIndex(ref properties, index);
-
-                i = properties.Length;
 
                 ((Neighbourhood)neighbourComboBox.SelectedItem).SetProperties(properties);
                 ((Neighbourhood)neighbourComboBox.SelectedItem).SetNumInCollection(properties.Length);

@@ -79,7 +79,7 @@ namespace AirBnbSystem.Airbnb
 
         public bool LoadData()
         {
-            if (fileName == null || fileName == "")
+            if (fileName == null || fileName.Length == 0)
             {
                 return false;
             }
@@ -159,7 +159,7 @@ namespace AirBnbSystem.Airbnb
 
         public bool SaveData()
         {
-            if (fileName == null || fileName == "")
+            if (fileName == null || fileName.Length == 0)
             {
                 return false;
             }
@@ -167,19 +167,22 @@ namespace AirBnbSystem.Airbnb
             {
                 try
                 {
+                    // Open up a new streamwriter to save our file with
                     StreamWriter writer = new StreamWriter(fileName);
 
+                    // For each district in the districts array
                     for (int i = 1; i < districts.Length; i++)
                     {
+                        // Get district from the instance of AirbnbMain
                         District district = AirbnbMain.GetInstance().GetDistricts()[i];
 
                         writer.WriteLine(district.GetName());
                         writer.WriteLine(district.GetNumInCollection());
-
+                        // if district doesnt have 0 neighbourhoods
                         if (district.GetNumInCollection() != 0)
                         {
                             Neighbourhood[] neighbourhoods = district.GetNeighbourhoods();
-
+                            // For each neighbourhood in te district
                             for (int y = 0; y < neighbourhoods.Length; y++)
                             {
                                 Neighbourhood neighbourhood = neighbourhoods[y];
@@ -188,14 +191,16 @@ namespace AirBnbSystem.Airbnb
                                     writer.WriteLine("Error in name");
                                 else
                                     writer.WriteLine(neighbourhood.GetName());
-
+                                // Write number of neighbourhoods to new line
                                 writer.WriteLine(neighbourhood.GetNumInCollection());
 
                                 Property[] properties = neighbourhood.GetProperties();
-
+                                // For each property in the neighbourhood
                                 for (int z = 0; z < neighbourhood.GetNumInCollection(); z++)
                                 {
                                     Property property = properties[z];
+
+                                    // Write fields to line from relevant 'Get' calls
 
                                     writer.WriteLine(property.GetId());
                                     writer.WriteLine(property.GetName());
@@ -213,14 +218,15 @@ namespace AirBnbSystem.Airbnb
                         }
                     }
 
+                    // Close the writer to avoid errors;
                     writer.Close();
                 }
-                catch (FileNotFoundException e)
+                catch (FileNotFoundException e) // Catch file not found error, can't find file
                 {
                     Debug.WriteLine("Unable to find the data file. " + e.Message);
                     MessageBox.Show("Unable to find the data file. " + e.Message);
                 }
-                catch (IOException e)
+                catch (IOException e) // Catch IOException, something went't wrong while handling the file
                 {
                     Debug.WriteLine("Error occurred while handling data file. " + e.Message);
                     MessageBox.Show("Error occurred while handling data file. " + e.Message);

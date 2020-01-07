@@ -8,13 +8,11 @@
         Title="Analytics Window" Height="495" Width="1119.5" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="White" Margin="0,0,0,0">
 
-
         <Grid Background="Transparent" Margin="125,0,10,0">
             <Canvas x:Name="numPropertiesToPriceGraph" Background="Pink"
                  Width="505" Height="275"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="411,60,0,115"/>
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="411,60,0,115" />
         </Grid>
-
 
         <Grid x:Name="DragBar" Height="45" VerticalAlignment="Top" Background="#FFFE3C6B" MouseLeftButtonDown="DragBar_MouseLeftButtonDown">
             <Grid HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="125">
@@ -32,26 +30,21 @@
             <Button x:Name="ExitButton" Content="Exit To Menu" Margin="1,405,0,45" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="{x:Null}" Foreground="#FFFF5A5F" Click="ExitButton_Click" RenderTransformOrigin="0.492,1.267" />
         </Grid>
         <Grid HorizontalAlignment="Left" Height="450" Margin="125,45,0,0" VerticalAlignment="Top" Width="995">
-            <Label Content="Select District: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,51,0,0"/>
-            <ComboBox x:Name="districtComboBox" HorizontalAlignment="Left" Margin="156,55,0,0" VerticalAlignment="Top" Width="231" SelectionChanged="districtComboBox_SelectionChanged"/>
+            <Label Content="Select District: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,51,0,0" />
+            <ComboBox x:Name="districtComboBox" HorizontalAlignment="Left" Margin="156,55,0,0" VerticalAlignment="Top" Width="231" SelectionChanged="districtComboBox_SelectionChanged" />
 
-            <Label Content="Average price($): " HorizontalAlignment="Left" Margin="50,156,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538"/>
-            <Label x:Name="avgPriceLbl" Content="" HorizontalAlignment="Left" Margin="217,156,0,0" VerticalAlignment="Top" Width="170"/>
+            <Label Content="Average price($): " HorizontalAlignment="Left" Margin="50,156,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538" />
+            <Label x:Name="avgPriceLbl" Content="" HorizontalAlignment="Left" Margin="217,156,0,0" VerticalAlignment="Top" Width="170" />
 
-            <Label Content="Average Availability: " HorizontalAlignment="Left" Margin="50,176,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538"/>
-            <Label x:Name="avgAvailabilityLbl" Content="" HorizontalAlignment="Left" Margin="217,176,0,0" VerticalAlignment="Top" Width="170"/>
+            <Label Content="Average Availability: " HorizontalAlignment="Left" Margin="50,176,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538" />
+            <Label x:Name="avgAvailabilityLbl" Content="" HorizontalAlignment="Left" Margin="217,176,0,0" VerticalAlignment="Top" Width="170" />
 
-            <Label Content="Average Properties per host: " HorizontalAlignment="Left" Margin="50,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538"/>
-            <Label x:Name="avgPropPerHostLbl" Content="" HorizontalAlignment="Left" Margin="217,196,0,0" VerticalAlignment="Top" Width="170"/>
+            <Label Content="Average Properties per host: " HorizontalAlignment="Left" Margin="50,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538" />
+            <Label x:Name="avgPropPerHostLbl" Content="" HorizontalAlignment="Left" Margin="217,196,0,0" VerticalAlignment="Top" Width="170" />
 
-            <Label Content="Number of Neighbourhoods: " HorizontalAlignment="Left" Margin="50,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538"/>
-            <Label x:Name="numberNeighbourhoodseLbl" Content="" HorizontalAlignment="Left" Margin="217,136,0,0" VerticalAlignment="Top" Width="170"/>
-
-
-
-
-
+            <Label Content="Number of Neighbourhoods: " HorizontalAlignment="Left" Margin="50,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.538" />
+            <Label x:Name="numberNeighbourhoodseLbl" Content="" HorizontalAlignment="Left" Margin="217,136,0,0" VerticalAlignment="Top" Width="170" />
         </Grid>
-        <Label Content="Graph Shows: Average Price Per Neighbourhood ($:Name)" HorizontalAlignment="Left" Margin="570,357,0,0" VerticalAlignment="Top"/>
+        <Label Content="Graph Shows: Average Price Per Neighbourhood ($:Name)" HorizontalAlignment="Left" Margin="570,357,0,0" VerticalAlignment="Top" />
     </Grid>
 </Window>

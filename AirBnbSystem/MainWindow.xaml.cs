@@ -17,9 +17,10 @@ namespace AirBnbSystem
 
         private void SelectDataFileBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "All files (*.*) | *.*";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "All files (*.*) | *.*"
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -36,7 +37,7 @@ namespace AirBnbSystem
         {
             string dataFileName = dataFileTxt.Text;
 
-            if (dataFileName == null || dataFileName == "")
+            if (dataFileName == null || dataFileName.Length == 0)
             {
                 MessageBox.Show("Please select a file before loading");
             }
@@ -71,6 +72,11 @@ namespace AirBnbSystem
             analyticsWindow.Show();
 
             this.Hide();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

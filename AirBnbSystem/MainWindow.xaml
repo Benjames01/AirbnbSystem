@@ -8,7 +8,9 @@
         Title="Airbnb System - Ben James" Height="720" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
 
     <Grid Background="White">
-        <Grid x:Name="dragBar" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="500" MouseLeftButtonDown="DragBar_MouseLeftButtonDown" Margin="0,0,0,0" Background="White" />
+        <Grid x:Name="dragBar" HorizontalAlignment="Right" Height="45" VerticalAlignment="Top" Width="500" MouseLeftButtonDown="DragBar_MouseLeftButtonDown" Margin="0,0,0,0" Background="White">
+            <Button x:Name="exitBtn" Content="X" Width="25" Height="25" Foreground="White" Background="#FFFE3C6B" BorderBrush="{x:Null}" BorderThickness="0" Click="ExitButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" />
+        </Grid>
         <Label Content="Airbnb" Margin="120,10,0,0" VerticalAlignment="Top" Foreground="#FFFF5A5F" FontFamily="Segoe Script" FontSize="60" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" Width="255" Height="110" />
         <Label Content="Select Data File:" HorizontalAlignment="Left" Margin="30,225,0,0" VerticalAlignment="Top" Foreground="#FF484848" FontStyle="Italic" />
         <TextBox x:Name="dataFileTxt" HorizontalAlignment="Left" Height="20" Margin="128,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" BorderThickness="0,0,0,0" Background="#FF767676" BorderBrush="{x:Null}" Foreground="#FF484848" IsEnabled="False" />

@@ -1,9 +1,6 @@
 ﻿using AirBnbSystem.Airbnb;
 using AirBnbSystem.Airbnb.Models;
-using AirBnbSystem.Airbnb.Pages;
 using AirBnbSystem.Airbnb.Utils;
-using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -26,7 +23,6 @@ namespace AirBnbSystem
 
             // Set combobox item source to the districts from the AirbnbMain instance
             districtComboBox.ItemsSource = AirbnbMain.GetInstance().GetDistricts();
-
         }
 
         private void DragBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -44,7 +40,6 @@ namespace AirBnbSystem
 
         private void districtComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             // If an item isn't selected update labels to zero
             if ((District)districtComboBox.SelectedItem == null)
             {
@@ -63,14 +58,13 @@ namespace AirBnbSystem
                 avgPropPerHostLbl.Content = DataUtils.GetDistrictAverageHostProperties(district).ToString("n1");
                 numberNeighbourhoodseLbl.Content = district.GetNumInCollection();
                 avgPriceLbl.Content = DataUtils.GetDistrictAveragePropertyPrice(district).ToString("n2");
-                avgAvailabilityLbl.Content  = DataUtils.GetDistrictAverageAvailablity(district).ToString("n1");
+                avgAvailabilityLbl.Content = DataUtils.GetDistrictAverageAvailablity(district).ToString("n1");
                 DrawGraph();
             });
         }
 
         private void DrawGraph()
         {
-
             numPropertiesToPriceGraph.Children.Clear();
 
             // Settings for the graph
@@ -91,10 +85,12 @@ namespace AirBnbSystem
                 new Point(0, yMinimum),
                 new Point(numPropertiesToPriceGraph.Width, yMinimum)));
 
-            Path xAxisPath = new Path();
-            xAxisPath.StrokeThickness = 1;
-            xAxisPath.Stroke = Brushes.Gray;
-            xAxisPath.Data = xAxisGeom;
+            Path xAxisPath = new Path
+            {
+                StrokeThickness = 1,
+                Stroke = Brushes.Gray,
+                Data = xAxisGeom
+            };
 
             // Add the x axis to the geometry group
             numPropertiesToPriceGraph.Children.Add(xAxisPath);
@@ -108,78 +104,78 @@ namespace AirBnbSystem
 
             for (double y = stepUp; y <= numPropertiesToPriceGraph.Height - stepUp; y += stepUp)
             {
-                TextBlock text = new TextBlock();
-                text.Text = y.ToString();
-                text.FontSize = 10;
-
-                text.Foreground = new SolidColorBrush(Colors.Black);
+                TextBlock text = new TextBlock
+                {
+                    Text = y.ToString(),
+                    FontSize = 10,
+                    Foreground = new SolidColorBrush(Colors.Black)
+                };
 
                 Canvas.SetLeft(text, margins - 20);
                 Canvas.SetTop(text, y - stepUp);
 
                 numPropertiesToPriceGraph.Children.Add(text);
-                
 
                 yAxisGeom.Children.Add(
                     new LineGeometry(
-                    new Point(margins - 20/ 2, y),
+                    new Point(margins - 20 / 2, y),
                     new Point(margins + 20 / 2, y)));
             }
 
-            Path yAxisPath = new Path();
-            yAxisPath.StrokeThickness = 1;
-            yAxisPath.Stroke = Brushes.Gray;
-            yAxisPath.Data = yAxisGeom;
+            Path yAxisPath = new Path
+            {
+                StrokeThickness = 1,
+                Stroke = Brushes.Gray,
+                Data = yAxisGeom
+            };
 
             numPropertiesToPriceGraph.Children.Add(yAxisPath);
-               
+
             GraphData[] dataSet = DataUtils.GetGraphData((District)districtComboBox.SelectedItem);
 
-            double width = (xMaximum - xMinimum) / dataSet.Length;           
+            double width = (xMaximum - xMinimum) / dataSet.Length;
             for (int i = 0; i < dataSet.Length; i++)
             {
-                
                 PointCollection points = new PointCollection();
 
-                int yTop = (int) dataSet[i].averagePrice;
+                int yTop = (int)dataSet[i].averagePrice;
                 if (yTop < yMinimum) yTop = (int)yMinimum + 8;
                 if (yTop > yMaximum) yTop = (int)yMaximum - 8;
 
                 int yBottom = yTop - 8;
 
-                TextBlock text = new TextBlock();
-                text.Text = DataUtils.GetStartingCharactersOfString(dataSet[i].name);
-                text.FontSize = 8;
-
-                text.Foreground = new SolidColorBrush(Colors.Black);
+                TextBlock text = new TextBlock
+                {
+                    Text = DataUtils.GetStartingCharactersOfString(dataSet[i].name),
+                    FontSize = 8,
+                    Foreground = new SolidColorBrush(Colors.Black)
+                };
 
                 double y = -stepUp;
 
-                if (i % 2 == 0 && i % 3 != 0) 
+                if (i % 2 == 0 && i % 3 != 0)
                 {
                     y -= stepUp * 2;
-                    
-                } else if(i % 3 == 0)
+                }
+                else if (i % 3 == 0)
                 {
                     y -= stepUp;
                 }
-                    
 
                 Canvas.SetLeft(text, i * width + xMinimum);
-                Canvas.SetTop(text,  y);
+                Canvas.SetTop(text, y);
 
                 numPropertiesToPriceGraph.Children.Add(text);
 
-
-                points.Add(new Point(i * width + xMinimum + 15, yTop));                
+                points.Add(new Point(i * width + xMinimum + 15, yTop));
                 points.Add(new Point(i * width + xMinimum + 15, yBottom));
 
-
-                Polyline polyline = new Polyline();
-                polyline.StrokeThickness = 1.5;
-
-                polyline.Stroke = Brushes.Black;
-                polyline.Points = points;
+                Polyline polyline = new Polyline
+                {
+                    StrokeThickness = 1.5,
+                    Stroke = Brushes.Black,
+                    Points = points
+                };
 
                 numPropertiesToPriceGraph.Children.Add(polyline);
             }
