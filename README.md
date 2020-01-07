@@ -1,4 +1,4 @@
-# The assignment scenario
+# The Assignment Scenario
 ## The Data
 Since 2008, guests and hosts have used Airbnb to expand on traveling possibilities and present more unique, personalized way of experiencing the world. This dataset describes the listing activity and metrics in NYC, NY for 2019. This dataset has all the data you need to find out more about hosts, geographical availability and other necessary metrics to make predictions and draw
 conclusions.
